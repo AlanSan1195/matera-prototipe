@@ -1,6 +1,4 @@
 ---
-import { InstancedMesh } from "three";
-
 const { color, title, subtitle, id, showFooterContent } = Astro.props;
 const empanadas = [
   {
@@ -292,6 +290,7 @@ const cocina = [
     price: "$320",
   },
 ];
+
 const parrilla = [
   {
     type: "Granja",
@@ -622,45 +621,29 @@ const postres = [
         </li>
       </ul>
       <div
-        id="divCampo"
-        class="grid grid-cols-3 justify-center text-center text-white m-2 bg-slate-600"
+        class="justify-center col-span-3 bg-white bg-opacity-15 border-2 border-red-600 rounded-xl m-2 text-white"
       >
+        <p class="text-xs m-2">
+          Los cortes que aquí servimos son de la más alta calidad, por lo tanto,
+          no requieren ser sometidos a ningún proceso de marinado o suavizado
+          que altere su textura y/o sabor natural.
+        </p>
+      </div>
+      <div id="divCampo" class="text-white text-center mx-auto h-auto">
         {
           parrilla[1].items.map((item) => (
-            <div class="flex flex-col justify-center  m-2  ">
-              <img id={item.carne}
-                class=" size-32 mx-auto hover:cursor-pointer  "
+            <div class=" justify-center  m-2 bg-slate-500    ">
+              <img
+                id={item.carne}
+                class=" size-24 mx-auto hover:cursor-pointer  "
                 src={item.src}
                 alt="cortes"
               />
               <h1 class=" text-base font-bold">{item.carne}</h1>
               <p class=" text-[10px]">{item.description}</p>
-              {item.subItems && (
-                <div id={`${item.carne}Div`} class="grid z-50 bg-black grid-cols-3 justify-center items-center ml-16 mt-8  h-full w-[420px] rounded-s-3xl shadow-xl shadow-slate-300/20 border-2 border-red-600/40 p-2">
-                  <h1 class="col-span-3 text-red-600 font-bold text-xl flex justify-center ">
-                    {item.carne}
-                  </h1>
-
-                  {item.subItems.map((subItem) => (
-                    <div class=" bg-slate-400 m-4  ">
-                      <p>{subItem.platillo}</p>
-                      <p>{subItem.gramaje}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
           ))
         }
-        <div
-          class="justify-center col-span-3 bg-white bg-opacity-15 border-2 border-red-600 rounded-xl m-2 text-white"
-        >
-          <p class="text-xs m-2">
-            Los cortes que aquí servimos son de la más alta calidad, por lo
-            tanto, no requieren ser sometidos a ningún proceso de marinado o
-            suavizado que altere su textura y/o sabor natural.
-          </p>
-        </div>
       </div>
     </div>
     <a
@@ -955,31 +938,8 @@ const postres = [
   <!-- //script para mostrar y ocultar divs EN TAMAÑO SM -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const item = JSON.parse(`{
-      "item1": {
-        "carne": "Bife de lomo",
-        "description": "Cortes suabes totalmente magros ",
-        "subItems": [
-          { "platillo": "lomito", "gramaje": "300g" },
-          { "platillo": "Bife de lomo", "gramaje": "350g" },
-          { "platillo": "Bife de lomo en caña", "gramaje": "800g" },
-          { "platillo": "tocino", "gramaje": "150g" },
-          { "platillo": "Bife de lomo en caña", "gramaje": "1200g" }
-        ]
-      },
-      "item2": {
-        "carne": "Vacio",
-        "description": "Corte jugoso, con marmoleo intermedio y textura firme",
-        "subItems": [
-          { "platillo": "Vacío", "gramaje": "400g" },
-          { "platillo": "Vacío", "gramaje": "650g" },
-          { "platillo": "Vacío", "gramaje": "1300g" }
-        ]
-      }
-    }`);
-    
-      
-      
+   
+
       const empanadas = document.getElementById("botonempanadas");
       const empanadasDiv = document.getElementById("divEmpanadas");
       const entradas = document.getElementById("botonEntradas");
@@ -996,13 +956,6 @@ const postres = [
       const postresDiv = document.getElementById("divPostres");
       const campo = document.getElementById("botonCampo");
       const campoDiv = document.getElementById("divCampo");
-      const filetes = document.getElementById(item.item1.carne)
-      const filetesDiv = document.getElementById(`${item.item1.carne}Div`)
-      const vacios = document.getElementById(item.item2.carne)
-      const vaciosDiv = document.getElementById(`${item.item2.carne}Div`)
-      
-    
-      
 
       const botones = [
         empanadas,
@@ -1013,10 +966,6 @@ const postres = [
         parrilla,
         postres,
         campo,
-        filetes,
-        vacios,
-       
-        
       ];
       const divs = [
         empanadasDiv,
@@ -1027,14 +976,9 @@ const postres = [
         parrillaDiv,
         postresDiv,
         campoDiv,
-        filetesDiv,
-        vaciosDiv,
-        
       ];
 
-  
-
-      function mostrarDiv(botones, divs ) {
+      function mostrarDiv(botones, divs) {
         botones.forEach((boton, index) => {
           boton.addEventListener("click", function () {
             const div = divs[index];
@@ -1056,26 +1000,8 @@ const postres = [
         });
       }
       mostrarDiv(botones, divs);
-       filetes.addEventListener("click", function () {
-        campoDiv.classList.remove("mostrar");
-        filetesDiv.classList.add("mostrar");
-        
-      });
-
-      vacios.addEventListener("click", function () {
-        campoDiv.classList.remove("mostrar");
-        campoDiv.classList.add("block");
-      });
 
       // ...resto del código...
- 
-      
-      
     });
-   
-   
   </script>
-  
-  
-
 </section>
